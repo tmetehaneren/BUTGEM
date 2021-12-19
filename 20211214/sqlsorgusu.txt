@@ -1,0 +1,26 @@
+use edu /* veritabanını aktif etme*/
+
+alter table Ogrenci add BolumId int not null /* var olan bir tabloya yeni bir alan-column- ekleme */
+
+/*Sorgulama*/ 
+
+Select * from Ogrenci 
+
+select [O.Soyisim] as 'Öğrenci Soyadı', [O.İsim] as 'Öğrenci Adı' from Ogrenci  /* as ile alias atadık*/ 
+
+select [O.İsim] as 'Öğrenci Adı', [O.Soyisim] as 'Öğrenci Soyadı', [B.Adi] as 'Bölüm Adı' from Ogrenci,Bolum where Bolum.[B.No] = Ogrenci.BId /*ilişkili tablodan veri çekme*/
+
+select [Og.İsim]  as 'Öğretmen Adı', [Og.Soyisim] as 'Öğretmen Soyadı', [D.Adi] as 'Ders Adı' from Ogretmen,Dersler where Ogretmen.[Og.No] = Dersler.[Og.Id]
+
+select [O.İsim] as ÖğrenciAdı, [O.Soyisim] as Öğrencisoyadı, [D.Adi] as Dersinadi, [V.Notu] as Vizenotu, [F.Notu] as Finalnotu from Ogrenci,Dersler,Notlar where Dersler.[D.No] = Notlar.[D.Id] and Ogrenci.[O.No] = Notlar.[O.Id] /*ilişkili 3 tablodan veri çekme*/
+
+select [O.İsim] as ÖğrenciAdı, [O.Soyisim] as Öğrencisoyadı, [D.Adi] as Dersinadi,[Og.İsim] as Öğretmenadi,[Og.Soyisim] as Öğretmensoyadi, [V.Notu] as Vizenotu, [F.Notu] as Finalnotu from Ogrenci,Dersler,Notlar,Ogretmen where Dersler.[D.No] = Notlar.[D.Id] and Ogrenci.[O.No] = Notlar.[O.Id] and Ogretmen.[Og.No]=Dersler.[Og.Id] /*ilişkili 3 tablodan veri çekme*/
+
+select [O.İsim] as ÖğrenciAdı, [O.Soyisim] as Öğrencisoyadı, [D.Adi] as Dersinadi,[Og.İsim] as Öğretmenadi,[Og.Soyisim] as Öğretmensoyadi, [V.Notu] as Vizenotu, [F.Notu] as Finalnotu ,([V.Notu]-0.40+[F.Notu]*0.60) as 'Ortalama'
+
+
+from Ogrenci,Dersler,Notlar,Ogretmen where Dersler.[D.No] = Notlar.[D.Id] and Ogrenci.[O.No] = Notlar.[O.Id] and Ogretmen.[Og.No]=Dersler.[Og.Id] /*ilişkili 3 tablodan veri çekme*/
+
+
+alter table Notlar alter column [V.Notu] float
+alter table Notlar alter column  [F.Notu] float 
